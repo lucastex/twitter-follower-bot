@@ -30,16 +30,11 @@ config.queries?.terms?.each { queryTerm ->
 log("will try to follow ${userList.size()} new users")
 userList.each { user ->
 	
-	if (!twitter.existsFriendship(config.twitter.username, user)) {
-		try {
-			twitter.createFriendship(user, true)
-			log("Created friendship between '${config.twitter.username}' and '${user}'")
-
-		} catch (Exception exp) { 
-			log("Error trying to follow user ${user}: ${exp.message}")
-		}
-	} else {
-		log("User ${user} is already on your friends list")
+	try {
+		twitter.createFriendship(user, true)
+		log("Created friendship between '${config.twitter.username}' and '${user}'")
+	} catch (Exception exp) { 
+		log("Error trying to follow user ${user}: ${exp.message}")
 	}
 }
 
